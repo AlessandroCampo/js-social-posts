@@ -86,7 +86,7 @@ posts.forEach((post, index) => {
             class="w-[50px] h-[50px] bg-black rounded-full cursor-pointer"></div>
         <p class="flex flex-col">
             <span class="font-bold text-sm"> ${post.author.name}</span>
-            <span class="text-xs"> ${post.created}</span>
+            <span class="text-xs"> ${formatDateString(post.created)}</span>
         </p>
     </div>
     <p class="text text-xs">
@@ -108,6 +108,17 @@ posts.forEach((post, index) => {
 </div>`
 })
 
+function formatDateString(inputDate) {
+    // Split the input date string into parts
+    var parts = inputDate.split('-');
+
+    // Format the date as DD MM YYYY
+    var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
+
+    return formattedDate;
+}
+
+
 const likeButtons = document.querySelectorAll("div.like")
 
 likeButtons.forEach((button, index) => {
@@ -116,6 +127,12 @@ likeButtons.forEach((button, index) => {
         const likeCounter = button.parentElement.querySelector("span.like-counter")
         button.classList.contains("text-green-800") ? posts[index].likes++ : posts[index].likes--
         likeCounter.innerText = `${posts[index].likes}`
-        likedPosts.push(posts[index].id)
+        if (!likedPosts.includes((posts[index].id))) {
+            likedPosts.push(posts[index].id)
+        } else {
+            let postIndex = likedPosts.indexOf(posts[index].id)
+            likedPosts.splice(postIndex, 1)
+        }
+        console.log(likedPosts)
     })
 })
