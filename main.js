@@ -113,12 +113,8 @@ posts.forEach((post, index) => {
 })
 
 function formatDateString(inputDate) {
-    // Split the input date string into parts
-    var parts = inputDate.split('-');
-
-    // Format the date as DD MM YYYY
-    var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
-
+    let parts = inputDate.split('-');
+    let formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
     return formattedDate;
 }
 
