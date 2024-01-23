@@ -36,7 +36,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=112",
         "author": {
             "name": "Sofia Perlari",
-            "image": "https://unsplash.it/300/300?image=10"
+            "image": null
         },
         "likes": 120,
         "created": "2021-09-03"
@@ -80,10 +80,14 @@ const body = document.querySelector("body")
 const likedPosts = []
 
 posts.forEach((post, index) => {
+    let nameAndSurname = post.author.name
+    let startingLetters = nameAndSurname.split(" ")[0].charAt(0) + nameAndSurname.split(" ")[1].charAt(0);
+    let tag
+    tag = post.author.image === null ? tag = `<h1 class ="fallback"> ${startingLetters} </h1>` : tag = `  <div style="background-image: url(${post.author.image});"
+    class="w-[50px] h-[50px] bg-black rounded-full cursor-pointer"></div>`
     body.innerHTML += `<div class="card bg-slate-50 mx-auto w-1/3 mt-5 p-3 flex flex-col gap-4">
     <div class="card-info flex gap-5 items-center">
-        <div style="background-image: url(${post.author.image});"
-            class="w-[50px] h-[50px] bg-black rounded-full cursor-pointer"></div>
+        ${tag}
         <p class="flex flex-col">
             <span class="font-bold text-sm"> ${post.author.name}</span>
             <span class="text-xs"> ${formatDateString(post.created)}</span>
@@ -134,5 +138,6 @@ likeButtons.forEach((button, index) => {
             likedPosts.splice(postIndex, 1)
         }
         console.log(likedPosts)
+
     })
 })
