@@ -77,6 +77,7 @@ const posts = [
 ];
 
 const body = document.querySelector("body")
+const likedPosts = []
 
 posts.forEach((post, index) => {
     body.innerHTML += `<div class="card bg-slate-50 mx-auto w-1/3 mt-5 p-3 flex flex-col gap-4">
@@ -100,9 +101,21 @@ posts.forEach((post, index) => {
             <span> Mi Piace </span>
         </div>
         <div class="text-xs">
-            <span> Piace a <span class="font-bold like-counter">${post.likes}</span> persone </span>
+            Piace a <span class="font-bold like-counter">${post.likes}</span> persone
         </div>
     </div>
 
 </div>`
+})
+
+const likeButtons = document.querySelectorAll("div.like")
+
+likeButtons.forEach((button, index) => {
+    button.addEventListener("click", (e) => {
+        button.classList.toggle("text-green-800")
+        const likeCounter = button.parentElement.querySelector("span.like-counter")
+        button.classList.contains("text-green-800") ? posts[index].likes++ : posts[index].likes--
+        likeCounter.innerText = `${posts[index].likes}`
+        likedPosts.push(posts[index].id)
+    })
 })
